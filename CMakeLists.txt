@@ -5,3 +5,4 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(sort sort.c)
 add_executable(heap heap.c)
+add_executable(bst bst.c)
