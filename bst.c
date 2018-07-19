@@ -63,17 +63,29 @@ void bst_insert(node *root, int data) {
     }
 }
 
-int bst_delete(node *root, int data) {
-    if (!root) {
-        return 0;
-    }
-    if (root->data == data) {
 
+
+node *bst_delete(node *root, int data) {
+    if (root == NULL) {
+        return root;
     }
+
     if (data < root->data) {
-        return bst_delete(root->left, data);
+        root->left = bst_delete(root->left, data);
+    } else if (data > root->data) {
+        root->right = bst_delete(root->right, data);
     } else {
-        return bst_delete(root->right, data);
+        if (root->left = NULL) {
+            node *right = root->right;
+            free(root);
+            return right;
+        } else if (root->right == NULL) {
+            node *left = root->left;
+            free(root);
+            return left;
+        } else {
+
+        }
     }
 }
 
