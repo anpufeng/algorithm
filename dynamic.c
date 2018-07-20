@@ -45,7 +45,7 @@ void choose(goods *g, int number, int capacity) {
 
     for (int i = 0; i <= number; i++) {
         for (int j = 0; j <= capacity; j++) {
-            printf(" index [%d, %d]: %d", i, j, dp[i][j]);
+            printf(" [%2d, %2d]: %d", i, j, dp[i][j]);
         }
         printf("\n");
     }
@@ -69,7 +69,9 @@ void choose(goods *g, int number, int capacity) {
 
 int main() {
     int capacity = 10;
-    goods g[] = {{2, 6}, {2, 3}, {6, 5}, {5, 4}, {4, 6}};
+//    goods g[] = {{2, 6}, {2, 3}, {6, 5}, {5, 4}, {4, 6}};
+    capacity = 12;
+    goods g[] = {{4, 8}, {6, 10}, {2, 6}, {2, 3}, {5, 7}, {1, 2}};
     choose(g, sizeof(g)/ sizeof(goods), capacity);
     return 0;
 }
