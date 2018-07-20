@@ -96,6 +96,47 @@ node *bst_delete(node *root, int data) {
     return root;
 }
 
+void bst_convert_node(node *root, node **last_node) {
+    if (root == NULL) {
+        return;
+    }
+
+    if (root->left != NULL) {
+        bst_convert_node(root->left, last_node);
+    }
+
+    root->left = *last_node;
+    if (*last_node != NULL) {
+        (*last_node)->right = root;
+    }
+
+    *last_node = root;
+    if (root->right != NULL) {
+        bst_convert_node(root->right, last_node);
+    }
+}
+
+void bst_print_list(node *root) {
+    node *current = root;
+    while(current != NULL) {
+        printf("data: %d\n", current->data);
+        current = current->right;
+    }
+}
+
+node *bst_convert_tolist(node *root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    node *head = root;
+    node *last_node = NULL;
+    while (head->left != NULL) {
+        head = head->left;
+    }
+    bst_convert_node(root, &last_node);
+    return head;
+}
+
 int bst_search(node *root, int data) {
     if (!root) {
         return 0;
@@ -169,8 +210,8 @@ int main() {
         printf("can not find 15\n");
     }
 
-//    bst_insert(root, 15);
-//    bst_insert(root, 15);
+    bst_insert(root, 15);
+    bst_insert(root, 15);
 
     if (bst_search(root, 15)) {
         printf("find 15\n");
@@ -178,6 +219,11 @@ int main() {
         printf("can not find 15\n");
     }
 
+    root = bst_convert_tolist(root);
+    bst_print_list(root);
+    //todo free list
+
+    /*
     root = bst_delete(root, 4);
     printf("============\n");
     preorder(root);
@@ -191,6 +237,7 @@ int main() {
     preorder(root);
 
     bst_free(root);
+     */
 
     return 0;
 }
