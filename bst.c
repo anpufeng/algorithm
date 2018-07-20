@@ -75,7 +75,7 @@ node *bst_delete(node *root, int data) {
     } else if (data > root->data) {
         root->right = bst_delete(root->right, data);
     } else {
-        if (root->left = NULL) {
+        if (root->left == NULL) {
             node *right = root->right;
             free(root);
             return right;
@@ -84,9 +84,16 @@ node *bst_delete(node *root, int data) {
             free(root);
             return left;
         } else {
-
+            node *min_right = root->right;
+            while (min_right->left != NULL) {
+                min_right = min_right->left;
+            }
+            root->data = min_right->data;
+            root->right = bst_delete(root->right, root->data);
         }
     }
+
+    return root;
 }
 
 int bst_search(node *root, int data) {
@@ -162,14 +169,26 @@ int main() {
         printf("can not find 15\n");
     }
 
-    bst_insert(root, 15);
-    bst_insert(root, 15);
+//    bst_insert(root, 15);
+//    bst_insert(root, 15);
 
     if (bst_search(root, 15)) {
         printf("find 15\n");
     } else {
         printf("can not find 15\n");
     }
+
+    root = bst_delete(root, 4);
+    printf("============\n");
+    preorder(root);
+
+    root = bst_delete(root, 6);
+    printf("============\n");
+    preorder(root);
+
+    root = bst_delete(root, 10);
+    printf("============\n");
+    preorder(root);
 
     bst_free(root);
 
